@@ -1,5 +1,5 @@
 header {
-    background: #FF0F0F;
+    background: blue;
     position: absolute;
     top: 0;
     left: 0;
@@ -7,6 +7,7 @@ header {
     padding-top: 10px;
     padding-bottom: 10px;
     text-align: center;
+    transition: all 1s ease;
 }
 
 body {
@@ -24,11 +25,38 @@ footer {
 
 main {
     padding-top: 35px;
+     transition: all 1s ease;
 }
 
-#map {}
+#map {
+
+}
 
 #mapPic {
     width: 100%;
-    z-index: -1;
+    z-index: 1;
+}
+html {
+    
+}
+
+div {
+     transition: all 1s ease;
+}
+
+#select {
+    position: absolute;
+    top: 100px;
+    left: 100px;
+}
+
+#errorPic {
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background-image: url(error.png);
+    background-repeat: no-repeat;
+    background-size: cover;
 }

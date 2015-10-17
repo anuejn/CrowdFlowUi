@@ -15,7 +15,7 @@ function WebSocketStart() {
             $("header").css("background", "#0FFF0F")
             $("header").text("Connected!");
             ws.send('{"device": "foo", "y": 22, "x": 90}');
-            ws.send('{"device": "foo", "y": 23, "x": 50}');
+            ws.send('{"device": "bar", "y": 23, "x": 50}');
         };
 
         ws.onmessage = function (evt) {
@@ -37,15 +37,16 @@ function WebSocketStart() {
                 }
             }
             packages++;
-            packageCounter.text(packages + " Packages recived");
+            packageCounter.text(packages + " Packages recieved");
             paintHeatMap(Liste, heatmapInstance, domObject, userCounter);
         };
 
         ws.onclose = function () {
             // websocket is closed.
             //$("messages").html += "Websocket closed!"
-            $("header").css("background", "#FF0F0F")
-            $("header").text("not running (try to reload)");
+            $("header").css("background", "#FF0000");
+            $("header").text("connection broke (try to reload)");
+            $("#mapPic").replaceWith('<div id="errorPic"></div>');
         };
     } else {
         // The browser doesn't support WebSocket
@@ -98,5 +99,5 @@ function paintHeatMap(points, heatMap, domElement, userCounter) {
     // if you have a set of datapoints always use setData instead of addData
     // for data initialization
     heatMap.setData(data);
-    userCounter.text(points.length + " Users seen");
+    userCounter.text(points.length + " visible Devices");
 }
