@@ -1,11 +1,9 @@
-
 header {
     background: #FF0F0F;
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-
     padding-top: 10px;
     padding-bottom: 10px;
     text-align: center;
@@ -28,9 +26,7 @@ main {
     padding-top: 35px;
 }
 
-#map {
-    
-}
+#map {}
 
 #mapPic {
     width: 100%;
