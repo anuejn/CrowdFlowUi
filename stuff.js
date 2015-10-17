@@ -13,6 +13,7 @@ function WebSocketStart() {
             $("header").css("background", "#0FFF0F")
             $("header").text("Connected!");
             ws.send('{"device": "foo", "y": 22, "x": 90}');
+            ws.send('{"device": "foo", "y": 23, "x": 50}');
         };
 
         ws.onmessage = function (evt) {
@@ -20,13 +21,14 @@ function WebSocketStart() {
             msgContent.time = new Date().getTime();
             var newUser = true;
             for (var i = 0; i < Liste.length; i++) {
-                if (Liste[i].device = msgContent.device) {
+                if (Liste[i].device == msgContent.device) {
                     newUser = false;
                 }
             }
             if (newUser = true) {
                 Liste.push(msgContent);
             } else {
+                alert("i know you!");
                 for (var knwnUser = 0; knwnUser < Liste.length;) {
                     if (Liste[knownUser].device = msgContent.device) {
                         Liste[knwnUser] = msgContent;
@@ -58,7 +60,7 @@ function collectOldElements(list, lifetimeInMs, heatMap, domObject) {
     var hasChanged = false;
     var oldLength = list.length;
     for (var i = 0; i < list.length; i++) {
-        if (list[i].time + lifetimeInMs > new Date.getTime()) {
+        if (list[i].time + lifetimeInMs < new Date().getTime()) {
             list.splice(i, 1);
             i--;
             hasChanged = true;
@@ -84,9 +86,9 @@ function paintHeatMap(points, heatMap, domElement) {
             y: points[i].y / 1.0 + 0, //cahnge me to an sensfull value!
             value: val
         };
-        points.push(point);
-
+        newPoints.push(point);
     }
+    
     // heatmap data format
     var data = {
         max: max,
@@ -94,5 +96,5 @@ function paintHeatMap(points, heatMap, domElement) {
     };
     // if you have a set of datapoints always use setData instead of addData
     // for data initialization
-    heatmapInstance.setData(data);
+    heatMap.setData(data);
 }
