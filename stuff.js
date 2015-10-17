@@ -5,6 +5,8 @@ function WebSocketStart() {
         container: document.querySelector('#map')
     });
     var domObject = $("#map");
+    var userCounter = $("#usr");
+    var packageCounter = $("#pkg");
 
     if ("WebSocket" in window) {
         var ws = new WebSocket("ws://echo.websocket.org");
@@ -25,19 +27,18 @@ function WebSocketStart() {
                     newUser = false;
                 }
             }
-            if (newUser = true) {
+            if (newUser == true) {
                 Liste.push(msgContent);
             } else {
-                alert("i know you!");
-                for (var knwnUser = 0; knwnUser < Liste.length;) {
+                for (var knownUser = 0; knownUser < Liste.length; knownUser++) {
                     if (Liste[knownUser].device = msgContent.device) {
-                        Liste[knwnUser] = msgContent;
+                        Liste[knownUser] = msgContent;
                     }
                 }
             }
             packages++;
-            $("#pkg").text(packages + " Packages recived");
-            paintHeatMap(Liste, heatmapInstance, domObject);
+            packageCounter.text(packages + " Packages recived");
+            paintHeatMap(Liste, heatmapInstance, domObject, userCounter);
         };
 
         ws.onclose = function () {
@@ -52,11 +53,11 @@ function WebSocketStart() {
         window.close();
     }
     setInterval(function () {
-        collectOldElements(Liste, 15000, heatmapInstance, domObject);
+        collectOldElements(Liste, 15000, heatmapInstance, domObject, userCounter);
     }, 1000);
 }
 
-function collectOldElements(list, lifetimeInMs, heatMap, domObject) {
+function collectOldElements(list, lifetimeInMs, heatMap, domObject, userCounter) {
     var hasChanged = false;
     var oldLength = list.length;
     for (var i = 0; i < list.length; i++) {
@@ -67,12 +68,12 @@ function collectOldElements(list, lifetimeInMs, heatMap, domObject) {
         }
     }
     if (hasChanged) {
-        paintHeatMap(list, heatMap, domObject);
+        paintHeatMap(list, heatMap, domObject, userCounter);
         console.log("cleaned " + (oldLength - list.length) + " elements up");
     }
 }
 
-function paintHeatMap(points, heatMap, domElement) {
+function paintHeatMap(points, heatMap, domElement, userCounter) {
     var newPoints = [];
     var max = 0;
     var width = domElement.width();
@@ -97,4 +98,5 @@ function paintHeatMap(points, heatMap, domElement) {
     // if you have a set of datapoints always use setData instead of addData
     // for data initialization
     heatMap.setData(data);
+    userCounter.text(points.length + " Users seen");
 }
